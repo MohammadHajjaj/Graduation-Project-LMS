@@ -1,0 +1,223 @@
+<% layout('./layouts/boilerplate')%>
+
+
+  <!--DASHBOARD SECTION-->
+  <header id="main-header" class="py-2 bg-primary text-white">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h1><i class="fa fa-gear"></i> Dashboard</h1>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <% include ../partials/alerts %>
+
+    <!-- ACTIONS -->
+    <section id="actions" class="py-4 mb-4 bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <a href="/books/all" class="btn btn-primary btn-block">
+              <i class="fa fa-plus"></i> Borrow a Book
+            </a>
+          </div>
+
+
+          <div class="col-md-4">
+            <a href="/books/return-renew" class="btn btn-info btn-block">
+              <i class="fa fa-retweet"></i> Renewals and returns
+            </a>
+          </div>
+          <div class="col-md-4">
+            <a href="/user/profile" class="btn btn-info btn-block">
+              <i class="fa fa-retweet"></i> Your Profile
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="home" class="mt-4">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="card">
+              <img src="/images/<%=user.image||" profile.png" %>" class="card-img-top p-1" alt="...">
+              <div class="card-body">
+                <p>Name : <%=user.fName%>
+                    <%=user.lName%>
+                </p>
+                <p>Email : <%=user.email%>
+                </p>
+                <p>Book Issued : <%=user.bookIssueInfo.length%>
+                </p>
+                <p>Subscribtion : <%=user.isSubscribed%>
+                </p>
+                <p>Joined : <%=user.joined.toDateString() %>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-9">
+
+            <div class="card">
+              <div class="card-header text-center">
+                <h4>Recent Activities</h4>
+              </div>
+              <table class="table table-striped">
+                <thead class="thead-inverse">
+                  <tr>
+                    <th>Info</th>
+                    <th>Category</th>
+                    <th>Date</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% activities.forEach(activity=> { %>
+                    <% if(activity.category=='Issue' ) { %>
+                      <tr>
+                        <td>You have <span class="table-text">issued</span>
+                          <%=activity.info.title%>
+                        </td>
+                        </td>
+                        <td>
+                          <%=activity.category%>
+                        </td>
+                        <td>
+                          <p>Issue : <%=activity.time.issueDate.toDateString()%>
+                          </p>
+                          <p>Return : <%=activity.time.returnDate.toDateString()%>
+                          </p>
+                        </td>
+                      </tr>
+                      <% } else if(activity.category=='Return' ) { %>
+                        <tr>
+                          <td>You have <span class="table-text">returned</span>
+                            <%=activity.info.title%>
+                          </td>
+                          </td>
+                          <td>
+                            <%=activity.category%>
+                          </td>
+                          <td>
+                            <p>Issue : <%=activity.time.issueDate.toDateString()%>
+                            </p>
+                            <p>Return : <%=activity.time.returnDate.toDateString()%>
+                            </p>
+                          </td>
+                        </tr>
+                        <% } else if(activity.category=='Renew' ) { %>
+                          <tr>
+                            <td>You have <span class="table-text">renewed</span>
+                              <%=activity.info.title%>
+                            </td>
+                            <td>
+                              <%=activity.category%>
+                            </td>
+                            <td>
+                              <p>Issue : <%=activity.time.issueDate.toDateString()%>
+                              </p>
+                              <p>Return : <%=activity.time.returnDate.toDateString()%>
+                              </p>
+                            </td>
+                          </tr>
+                          <% } else if(activity.category=='Update Profile' ) { %>
+                            <tr>
+                              <td>You have recently <span class="table-text">updated your profile info</span> </td>
+                              <td>
+                                <%=activity.category%>
+                              </td>
+                              <td>
+                                <%=activity.entryTime.toDateString()%>
+                              </td>
+                              <td>
+                                <a href="/user/profile" class="btn btn-sm btn-success" role="button">Visit
+                                  Profile</a>
+                              </td>
+                            </tr>
+                            <% } else if(activity.category=='Update Password' ) { %>
+                              <tr>
+                                <td>You have recently <span class="table-text">updated your password</span></td>
+                                <td>
+                                  <%=activity.category%>
+                                </td>
+                                <td>
+                                  <%=activity.entryTime.toDateString()%>
+                                </td>
+                                <td>
+                                  <button class="btn btn-sm btn-success">Changed Successfully!</button>
+                                </td>
+                              </tr>
+                              <% } else if(activity.category=='Upload Photo' ) { %>
+                                <tr>
+                                  <td>You have recently <span class="table-text">updated your profile picture</span>
+                                  </td>
+                                  <td>
+                                    <%=activity.category%>
+                                  </td>
+                                  <td>
+                                    <%=activity.entryTime.toDateString()%>
+                                  </td>
+                                  <td>
+                                    <button class="btn btn-sm btn-success">Changed Successfully!</button>
+                                  </td>
+                                </tr>
+                                <% } else if(activity.category=='Update Comment' ) { %>
+                                  <tr>
+                                    <td>You have <span class="table-text">updated your comment</span> on
+                                      <%=activity.info.title%>
+                                    </td>
+                                    <td>
+                                      <%= activity.category %>
+                                    </td>
+                                    <td>
+                                      <%=activity.entryTime.toDateString()%>
+                                    </td>
+                                    <td><a href="/books/details/<%=activity.info.id%>" class="btn btn-sm btn-secondary">
+                                        <i class="fa fa-angle-double-right"></i> Details
+                                      </a></td>
+                                  </tr>
+                                  <% } else if(activity.category=='Delete Comment' ) { %>
+                                    <tr>
+                                      <td>You have <span class="table-text">deleted your comment</span> on
+                                        <%=activity.info.title%>
+                                      </td>
+                                      <td>
+                                        <%= activity.category %>
+                                      </td>
+                                      <td>
+                                        <%=activity.entryTime.toDateString()%>
+                                      </td>
+                                      <td><a href="/books/details/<%=activity.info.id%>"
+                                          class="btn btn-sm btn-secondary">
+                                          <i class="fa fa-angle-double-right"></i> Details
+                                        </a></td>
+                                    </tr>
+                                    <% } %>
+                                      <% }); %>
+
+                </tbody>
+              </table>
+
+
+
+
+              <!--<nav class="ml-3">-->
+              <!--  <ul class="pagination offset-md-4">-->
+              <!--    <li class="page-item disabled"><a href="#" class="page-link"><i class="fa fa-angle-double-left"></i> Previous</a></li>-->
+              <!--    <li class="page-item active"><a href="#" class="page-link">1</a></li>-->
+              <!--    <li class="page-item"><a href="#" class="page-link">2</a></li>-->
+              <!--    <li class="page-item"><a href="#" class="page-link">3</a></li>-->
+              <!--    <li class="page-item"><a href="#" class="page-link">Next <i class="fa fa-angle-double-right"></i></a></li>-->
+              <!--  </ul>-->
+              <!--</nav>-->
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
