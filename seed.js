@@ -109,15 +109,15 @@ mongoose.connect('mongodb://localhost:27017/projecttest', { useNewUrlParser: tru
 
 const seedDB = async () => {
     await Book.deleteMany({});
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 30; i++) {
         const ISBN = Math.floor(Math.random() * 1000000) + 10000;
         const stock = Math.floor(Math.random() * 1) + 10;
         const book = new Book({
             title: `book${i + 1}`,
-            author: `3bdlah${i + 1}`,
+            author: `Test`,
             image: 'https://source.unsplash.com/collection/430456',
             ISBN,
-            category: "math",
+            category: "art",
             description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam dolores vero perferendis laudantium, consequuntur voluptatibus nulla architecto, sit soluta esse iure sed labore ipsam a cum nihil atque molestiae deserunt!',
             stock
         })

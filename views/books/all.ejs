@@ -1,303 +1,124 @@
 <% layout('layouts/boilerplate')%>
 	<% include ../partials/alerts %>
 		<!--SEARCH BAR-->
-		<section id="search_bar" class="my-3 py-4 bg-light">
-			<div class="container">
-				<form action="/books/all" method="POST">
-					<div class="row">
-						<div class="col-md-5 p-1">
-							<select name="filter" class="form-control">
-								<option selected disabled>Select Filter...</option>
-								<option name="title">Title</option>
-								<option name="author">Author</option>
-								<option name="category">Category</option>
-								<option name="ISBN">ISBN</option>
-							</select>
-						</div>
+		<div id="search_bar" class=" bg-light d-flex ">
 
-						<div class="col-md-5 p-1">
-							<input name="searchName" type="text" class="form-control" placeholder="Search Books">
-						</div>
+			<form action="/books/all/all/1" method="POST" class="d-flex mx-auto">
 
-						<div class="col-md-2 p-1">
-							<input type="submit" class="btn btn-outline-primary btn-block" value="Search">
-						</div>
-					</div>
-				</form>
-			</div>
-		</section>
+				<div class="mx-auto">
+					<select name="filter" class="form-control form-control-lg mt-3">
+						<option selected disabled>Select Filter...</option>
+						<option name="title">Title</option>
+						<option name="author">Author</option>
+						<option name="category">Category</option>
+						<option name="ISBN">ISBN</option>
+					</select>
+				</div>
+				<div>
+					<input name="searchName" type="text" class="form-control " placeholder="Search Books">
+				</div>
+				<button class="btn btn-primary fas fa-search px-3 my-1" type="submit"></button>
 
-		<div class="container-fluid">
-			<div id="main">
-				<h1>
-					English Books
-				</h1>
-				<div class="row">
-					<%for(let book of books.slice(0,4)){%>
-						<div class="col-sm-4 col-md-3">
-							<div class="thumbnail">
-								<a href="/book/<%=book._id%>">
-									<img style="width: 100%; height: 200px; display: block;" alt="100%x200"
-										src="<%=book.image%>" data-src="holder.js/100%x200" data-holder-rendered="true">
-								</a>
-								<div class="caption center">
-									<h3>
-										<%=book.title%>
-									</h3>
-									<!-- <p><span>price:</span><span>
-										</span></p> -->
-									<p><a class="btn btn-primary btn-block" role="button"
-											href="/book/<%=book._id%>">Details</a>
-									</p>
-								</div>
-							</div>
-						</div>
-						<%}%>
-							<hr size="3">
-				</div>
-				<h1>
-					Architecture
-				</h1>
-				<div class="row">
-					<%for(let book of books.slice(0,4)){%>
-						<div class="col-sm-4 col-md-3">
-							<div class="thumbnail">
-								<a href="/book/<%=book._id%>">
-									<img style="width: 100%; height: 200px; display: block;" alt="100%x200"
-										src="<%=book.image%>" data-src="holder.js/100%x200" data-holder-rendered="true">
-								</a>
-								<div class="caption center">
-									<h3>
-										<%=book.title%>
-									</h3>
-									<p><span>price:</span><span>
-											<%=book.price%>$
-										</span></p>
-									<p><a class="btn btn-primary btn-block" role="button"
-											href="/book/<%=book._id%>">Details</a>
-									</p>
-								</div>
-							</div>
-						</div>
-						<%}%>
-							<hr size="3">
-				</div>
-				<h1>
-					Antiques & Collectibles
-				</h1>
-				<div class="row">
-					<%for(let book of books.slice(0,4)){%>
-						<div class="col-sm-4 col-md-3">
-							<div class="thumbnail">
-								<a href="/book/<%=book._id%>">
-									<img style="width: 100%; height: 200px; display: block;" alt="100%x200"
-										src="<%=book.image%>" data-src="holder.js/100%x200" data-holder-rendered="true">
-								</a>
-								<div class="caption center">
-									<h3>
-										<%=book.title%>
-									</h3>
-									<p><span>price:</span><span>
-											<%=book.price%>$
-										</span></p>
-									<p><a class="btn btn-primary btn-block" role="button"
-											href="/book/<%=book._id%>">Details</a>
-									</p>
-								</div>
-							</div>
-						</div>
-						<%}%>
-							<hr size="3">
-				</div>
-				<h1>
-					Art
-				</h1>
-				<div class="row">
-					<%for(let book of books.slice(0,4)){%>
-						<div class="col-sm-4 col-md-3">
-							<div class="thumbnail">
-								<a href="/book/<%=book._id%>">
-									<img style="width: 100%; height: 200px; display: block;" alt="100%x200"
-										src="<%=book.image%>" data-src="holder.js/100%x200" data-holder-rendered="true">
-								</a>
-								<div class="caption center">
-									<h3>
-										<%=book.title%>
-									</h3>
-									<p><span>price:</span><span>
-											<%=book.price%>$
-										</span></p>
-									<p><a class="btn btn-primary btn-block" role="button"
-											href="/book/<%=book._id%>">Details</a>
-									</p>
-								</div>
-							</div>
-						</div>
-						<%}%>
-							<hr size="3">
-				</div>
-				<h1>
-					Graphic Novels and Comics
-				</h1>
-				<div class="row">
-					<%for(let book of books.slice(0,4)){%>
-						<div class="col-sm-4 col-md-3">
-							<div class="thumbnail">
-								<a href="/book/<%=book._id%>">
-									<img style="width: 100%; height: 200px; display: block;" alt="100%x200"
-										src="<%=book.image%>" data-src="holder.js/100%x200" data-holder-rendered="true">
-								</a>
-								<div class="caption center">
-									<h3>
-										<%=book.title%>
-									</h3>
-									<p><span>price:</span><span>
-											<%=book.price%>$
-										</span></p>
-									<p><a class="btn btn-primary btn-block" role="button"
-											href="/book/<%=book._id%>">Details</a>
-									</p>
-								</div>
-							</div>
-						</div>
-						<%}%>
-							<hr size="3">
-				</div>
-				<h1>
-					Computers
-				</h1>
-				<div class="row">
-					<%for(let book of books.slice(0,4)){%>
-						<div class="col-sm-4 col-md-3">
-							<div class="thumbnail">
-								<a href="/book/<%=book._id%>">
-									<img style="width: 100%; height: 200px; display: block;" alt="100%x200"
-										src="<%=book.image%>" data-src="holder.js/100%x200" data-holder-rendered="true">
-								</a>
-								<div class="caption center">
-									<h3>
-										<%=book.title%>
-									</h3>
-									<p><span>price:</span><span>
-											<%=book.price%>$
-										</span></p>
-									<p><a class="btn btn-primary btn-block" role="button"
-											href="/book/<%=book._id%>">Details</a>
-									</p>
-								</div>
-							</div>
-						</div>
-						<%}%>
-							<hr size="3">
-				</div>
-				<h1>
-					Self-Help
-				</h1>
-				<div class="row">
-					<%for(let book of books.slice(0,4)){%>
-						<div class="col-sm-4 col-md-3">
-							<div class="thumbnail">
-								<a href="/book/<%=book._id%>">
-									<img style="width: 100%; height: 200px; display: block;" alt="100%x200"
-										src="<%=book.image%>" data-src="holder.js/100%x200" data-holder-rendered="true">
-								</a>
-								<div class="caption center">
-									<h3>
-										<%=book.title%>
-									</h3>
-									<p><span>price:</span><span>
-											<%=book.price%>$
-										</span></p>
-									<p><a class="btn btn-primary btn-block" role="button"
-											href="/book/<%=book._id%>">Details</a>
-									</p>
-								</div>
-							</div>
-						</div>
-						<%}%>
-							<hr size="3">
-				</div>
-				<h1>
-					Foreign
-				</h1>
-				<div class="row">
-					<%for(let book of books.slice(0,4)){%>
-						<div class="col-sm-4 col-md-3">
-							<div class="thumbnail">
-								<a href="/book/<%=book._id%>">
-									<img style="width: 100%; height: 200px; display: block;" alt="100%x200"
-										src="<%=book.image%>" data-src="holder.js/100%x200" data-holder-rendered="true">
-								</a>
-								<div class="caption center">
-									<h3>
-										<%=book.title%>
-									</h3>
-									<p><span>price:</span><span>
-											<%=book.price%>$
-										</span></p>
-									<p><a class="btn btn-primary btn-block" role="button"
-											href="/book/<%=book._id%>">Details</a>
-									</p>
-								</div>
-							</div>
-						</div>
-						<%}%>
-							<hr size="3">
-				</div>
-				<h1>
-					Fiction
-				</h1>
-				<div class="row">
-					<%for(let book of books.slice(0,4)){%>
-						<div class="col-sm-4 col-md-3">
-							<div class="thumbnail">
-								<a href="/book/<%=book._id%>">
-									<img style="width: 100%; height: 200px; display: block;" alt="100%x200"
-										src="<%=book.image%>" data-src="holder.js/100%x200" data-holder-rendered="true">
-								</a>
-								<div class="caption center">
-									<h3>
-										<%=book.title%>
-									</h3>
-									<p><span>price:</span><span>
-											<%=book.price%>$
-										</span></p>
-									<p><a class="btn btn-primary btn-block" role="button"
-											href="/book/<%=book._id%>">Details</a>
-									</p>
-								</div>
-							</div>
-						</div>
-						<%}%>
 
-							<h1>
-								Business & Economics
-							</h1>
-							<div class="row">
-								<%for(let book of books.slice(0,4)){%>
-									<div class="col-sm-4 col-md-3">
-										<div class="thumbnail">
-											<a href="/book/<%=book._id%>">
-												<img style="width: 100%; height: 200px; display: block;" alt="100%x200"
-													src="<%=book.image%>" data-src="holder.js/100%x200"
-													data-holder-rendered="true">
-											</a>
-											<div class="caption center">
-												<h3>
-													<%=book.title%>
-												</h3>
-												<p><span>price:</span><span>
-														<%=book.price%>$
-													</span></p>
-												<p><a class="btn btn-primary btn-block" role="button"
-														href="/book/<%=book._id%>">Details</a>
-												</p>
-											</div>
-										</div>
-									</div>
-									<%}%>
-							</div>
-				</div>
-			</div>
+
+
+
+			</form>
 
 		</div>
+
+		<section id="browse_books" class="mt-5">
+			<div class="container">
+
+				<div class="row">
+					<% for(var i=0; i < books.length; i++) { %>
+						<div class="card col-md-3 text-center">
+							<div class="card-body">
+								<h5 class="card-title">
+									<%=books[i].title%>
+								</h5>
+								<p class="text-muted">
+									<small class="text-muted">Author : <%=books[i].author%></small>
+								</p>
+								<p class="text-muted">
+									<small class="text-muted">Category : <%=books[i].category%></small>
+								</p>
+								<p class="text-muted">
+									<small class="text-muted">In stock : <%=books[i].stock%></small>
+								</p>
+
+
+								<% if(currentUser && books[i].stock> 0) { var match = false%>
+									<% user.bookIssueInfo.forEach(book_info=> { %>
+										<% if(book_info._id.equals(books[i]._id)) { %>
+											<a href="#" class="btn btn-xs btn-warning disabled" role="button"
+												aria-disabled="true">Issued!</a>
+											<a href="/books/return-renew" class="btn btn-xs btn-success"
+												role="button">Return/Renew</a>
+											<% match=true; } %>
+												<% }) %>
+
+													<% if(!match) {%>
+														<form
+															action="/books/<%=books[i]._id%>/issue/<%=currentUser._id%>"
+															method="POST" class="d-inline">
+															<input class="btn btn-xs btn-success" type="submit"
+																value="Borrow">
+														</form>
+														<% } %>
+															<% } %>
+																<form action="/book/<%=books[i]._id%>" method="get"
+																	class="d-inline">
+																	<input class="btn btn-xs btn-success" type="submit"
+																		value="Details">
+																</form>
+							</div>
+						</div>
+						<% } %>
+				</div>
+				<% if (pages> 0) { %>
+					<nav class="ml-3 mb-2">
+						<ul class="pagination offset-md-3">
+
+							<% if (current==1) { %>
+								<li class="page-item disabled"><a class="page-link">First</a></li>
+								<% } else { %>
+									<li class="page-item"><a href="/books/<%=filter%>/<%=value%>/1"
+											class="page-link">First</a></li>
+									<% } %>
+
+										<% var i=(Number(current)> 5 ? Number(current) - 4 : 1) %>
+											<% if (i !==1) { %>
+												<li class="page-item disabled"><a class="page-link">...</a></li>
+												<% } %>
+													<% for (; i <=(Number(current) + 4) && i <=pages; i++) { %>
+														<% if (i==current) { %>
+															<li class="page-item active"><a class="page-link">
+																	<%= i %>
+																</a></li>
+															<% } else { %>
+																<li class="page-item"><a class="page-link"
+																		href="/books/<%=filter%>/<%=value%>/<%= i %>">
+																		<%= i %>
+																	</a></li>
+																<% } %>
+																	<% if (i==Number(current) + 4 && i < pages) { %>
+																		<li class="page-item disabled"><a
+																				class="page-link">...</a></li>
+																		<% } %>
+																			<% } %>
+																				<% if (current==pages) { %>
+																					<li class="page-item disabled"><a
+																							class="page-link">Last</a>
+																					</li>
+																					<% } else { %>
+																						<li class="page-item"><a
+																								href="/books/<%=filter%>/<%=value%>/<%= pages %>"
+																								class="page-link">Last</a>
+																						</li>
+																						<% } %>
+						</ul>
+					</nav>
+					<% } %>
+			</div>
+		</section>

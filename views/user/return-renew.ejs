@@ -33,7 +33,8 @@
             <tbody>
               <% user.forEach(book=> { %>
                 <tr>
-                  <td>You have issued <%=book.book_info.title%>
+                  <td>
+                    <%=book.book_info.title%>
                   </td>
                   </td>
                   <td>
@@ -51,8 +52,10 @@
                   <td>
 
                     <% if(book.book_info.isRenewed) { %>
-                      <a href="#" class="btn btn-xs btn-warning disabled" role="button"
-                        aria-disabled="true">Renewed!</a>
+                      <form action="/books/<%=book.book_info.id%>/renew" method="POST" class="d-inline">
+                        <input class="btn btn-xs btn-warning disabled" type="submit" value="renewed!">
+                      </form>
+
                       <% } else if(currentUser.violationFlag && book.book_info.returnDate < Date.now()) { %>
                         <a class="btn btn-xs btn-warning" title="You can't renew book when you are flagged">Renew</a>
                         <% } else { %>

@@ -20,23 +20,27 @@
                         <a class="nav-link" href="/">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/books/all">Browse</a>
+                        <a class="nav-link" href="/books/all/all/1">Browse</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Subscribe</a>
+                        <a class="nav-link" href="/subscribe">Subscribe</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Help</a>
+                        <a class="nav-link" href="/help">Help</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/faq">FAQ</a>
                     </li>
                 </ul>
                 <div>
-                    <form class="d-flex">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <form action="/books/all/all/1" method="POST" class="d-flex">
+                        <input name="searchName" class="form-control me-2 " type="search" placeholder="Search"
+                            aria-label="Search">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
                 </div>
 
-                <button class="btn btn-outline-success" type="submit">Advanced Search</button>
+                <button class="btn btn-outline-success ml-3" type="submit">Advanced Search</button>
 
                 <% if(!currentUser) {%>
 
@@ -51,14 +55,14 @@
 
                     </ul>
                     <% } else {%>
-                        <ul class="navbar-nav mr-auto">
+                        <ul class="navbar-nav mr-auto ">
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     <%= currentUser.username %>
                                 </a>
 
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <li><a class="dropdown-item" href="/user/dashboard">Dashboard</a></li>
                                     <li><a class="dropdown-item" href="/logout">Sign Out</a></li>
                                 </ul>
