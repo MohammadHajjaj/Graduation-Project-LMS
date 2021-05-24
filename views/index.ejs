@@ -1,3 +1,126 @@
 <% layout('layouts/boilerplate')%>
     <% include ./partials/alerts %>
-        <h1>VERY GOOD HOME</h1>
+        <section class="slideshow">
+            <div class="container w-50">
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <a href="/">
+                                <img src="images\first image main.jpg" class="d-block w-100" alt="...">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Welcome to our project</h5>
+                                    <p>Where reading is fun and relaxing. </p>
+                                </div>
+                        </div>
+                        </a>
+                        <div class="carousel-item">
+                            <a href="/books/all/all/1">
+                                <img src="images\second image.jpeg" class="d-block w-100" alt="...">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Browse all books </h5>
+                                    <p>with a big collection of books and genres.</p>
+                                </div>
+                        </div>
+                        </a>
+                        <div class="carousel-item">
+                            <a href="/subscribe">
+                                <img src="images\subscribe image.jpg" class="d-block w-100" alt="...">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>Subscribe!</h5>
+                                    <p>Subscribe to our bundles now to get most of our deals. </p>
+                                </div>
+                        </div>
+                        </a>
+                        <div class="carousel-item">
+                            <a href="/help">
+                                <img src="images\help.jpg" class="d-block w-100" alt="...">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>we got you!</h5>
+                                    <p>do you need help browsing our store?</p>
+                                </div>
+                        </div>
+                        </a>
+                        <div class="carousel-item">
+                            <a href="/faq">
+                                <img src="images\faq.jpg" class="d-block w-100" alt="...">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>FAQ</h5>
+                                    <p>frequently asked questions.</p>
+                                </div>
+                        </div>
+                        </a>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                        data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                        data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                <hr>
+                <div>
+                    <h1 class="text-center">
+                        trending
+                    </h1>
+                </div>
+
+                <div class="row slideshow">
+                    <div id="carouselExampleControls2" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="item active carousel-item">
+                                <div class="row">
+                                    <div class="col-lg-3"><a href="#" class="thumbnail"><img src="<%=books[0].image%>"
+                                                alt="Image" style="max-width:100%;"></a>
+                                    </div>
+                                    <div class="col-lg-3"><a href="#" class="thumbnail"><img src="<%=books[1].image%>"
+                                                alt="Image" style="max-width:100%;"></a>
+                                    </div>
+                                    <div class="col-lg-3"><a href="#" class="thumbnail"><img src="<%=books[2].image%>"
+                                                alt="Image" style="max-width:100%;"></a>
+                                    </div>
+                                    <div class="col-lg-3"><a href="#" class="thumbnail"><img src="<%=books[3].image%>"
+                                                alt="Image" style="max-width:100%;"></a>
+                                    </div>
+                                </div>
+                                <!--.row-->
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row">
+                                    <div class="col-lg-3"><a href="#" class="thumbnail"><img src="<%=books[0].image%>"
+                                                alt="Image" style="max-width:100%;"></a>
+                                    </div>
+                                    <div class="col-lg-3"><a href="#" class="thumbnail"><img src="<%=books[1].image%>"
+                                                alt="Image" style="max-width:100%;"></a>
+                                    </div>
+                                    <div class="col-lg-3"><a href="#" class="thumbnail"><img src="<%=books[2].image%>"
+                                                alt="Image" style="max-width:100%;"></a>
+                                    </div>
+                                    <div class="col-lg-3"><a href="#" class="thumbnail"><img src="<%=books[3].image%>"
+                                                alt="Image" style="max-width:100%;"></a>
+                                    </div>
+                                </div>
+                                <!--.row-->
+                            </div>
+
+                            <button class="carousel-control-prev" type="button"
+                                data-bs-target="#carouselExampleControls2" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button"
+                                data-bs-target="#carouselExampleControls2" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </section>

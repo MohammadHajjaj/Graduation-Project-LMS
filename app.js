@@ -16,6 +16,10 @@ const User = require('./models/users');
 const userRoutes = require("./routes/users")
 
 const bookRoutes = require("./routes/books")
+const subRoutes = require("./routes/subscription")
+const adminRoutes = require("./routes/admin")
+
+
 
 // const Book = require('./models/Books');
 // const Issue = require('./models/issue');
@@ -108,10 +112,10 @@ app.use((req, res, next) => {
 //Routes
 app.use(userRoutes);
 app.use(bookRoutes);
+app.use(subRoutes);
+app.use(adminRoutes);
 
-app.get('/subscribe', (req, res) => {
-    res.render('subscribe');
-})
+
 
 app.get('/faq', (req, res) => {
     res.render('faq');

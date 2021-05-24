@@ -15,6 +15,8 @@
                     <input type="password" id="password" class="fadeIn third form-check-input" name="password"
                         placeholder="Password" required>
                     <input type="submit" class="fadeIn fourth" value="Log In">
+                    <input type="button" class="fadeIn fourth" data-bs-toggle="modal"
+                        data-bs-target="#ResetPasswordModal" value="forgot password ?">
                     <div id="popdiv">
                         <a class="fas fa-times" href="#" id="Close-login"></a>
                     </div>
@@ -81,6 +83,33 @@
         </div>
     </div>
 </div>
+<div class="modal fade" id="ResetPasswordModal">
+    <div class="modal-dialog modal-lg bg-dark">
+        <div class="modal-content">
+            <div class="modal-header bg-primary text-white">
+                <h5 class="modal-title" id="passwordModalLabel">
+                    Edit Password
+                </h5>
+                <button class="btn-close" data-bs-dismiss="modal"><span></span></button>
+            </div>
+            <div class="modal-body">
+                <form action="/user/update-password?_method=PUT" method="POST">
+                    <div class="form-group">
+                        <label for="Email" class="form-control-label">Enter your email</label>
+                        <input id="Email" type="text" name="password" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="form-control-label">New Password</label>
+                        <input id="confirmPassword" type="password" name="confirmPassword" class="form-control">
+                        <span id='message'></span>
+                    </div>
+                    <button id="button" class="btn btn-primary btn-block" onclick="alertfucn()">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script>
     $(document).ready(function () {
@@ -93,6 +122,9 @@
     });
 </script>
 <script>
+    function alertfucn() {
+        alert("Password changed !")
+    }
 
     $(document).ready(function () {
         $("#Open-register").click(function () {

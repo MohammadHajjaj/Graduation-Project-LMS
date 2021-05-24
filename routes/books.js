@@ -97,4 +97,8 @@ router.post("/books/:filter/:value/:page", async (req, res, next) => {
         console.log(err)
     }
 })
+router.get('/', async (req, res) => {
+    const books = await Book.find({})
+    res.render('index', { books });
+})
 module.exports = router;
