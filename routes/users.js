@@ -12,24 +12,34 @@ router.get('/register', (req, res) => {
     res.render('register');
 });
 
-router.post('/register', async (req, res, next) => {
-
+router.post('/register', middleware.validateUser, async (req, res, next) => {
     const { fName, lName, email, phoneNumber, username, password } = req.body.users;
     const user = new User({ fName, lName, email, phoneNumber, username });
     const registeredUser = await User.register(user, password);
     req.login(registeredUser, err => {
         if (err) return next(err);
+        req.flash('success', 'Registered Successfully!');
         res.redirect('/');
     })
+
 })
 
 
 
-router.post('/login', passport.authenticate('local', { failureRedirect: '/' }), (req, res) => {
-    const redirectUrl = req.session.returnTo || '/';
-    delete req.session.returnTo;
+router.post('/login', passport.authenticate('local', {
+    failureRedirect: '/', badRequestMessage: 'Missing username or password.',
+    failureFlash: true
+}), (req, res) => {
+    try {
+        const redirectUrl = req.session.returnTo || '/';
+        delete req.session.returnTo;
+        req.flash('success', 'Logged In Successfully!');
+        res.redirect(redirectUrl);
+    }
+    catch (e) {
+        req.flash('Error', 'Wrong Username Or Password!');
 
-    res.redirect(redirectUrl);
+    }
 })
 
 
@@ -37,6 +47,7 @@ router.post('/login', passport.authenticate('local', { failureRedirect: '/' }), 
 
 router.get('/logout', (req, res) => {
     req.logout();
+    req.flash('success', 'Logged Out!');
     res.redirect('/');
 })
 // user -> dashboard

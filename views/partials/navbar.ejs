@@ -1,5 +1,4 @@
 <%- include('../partials/login_and_signup')%>
-
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <div class="container-fluid">
 
@@ -13,67 +12,170 @@
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation"> <span class="navbar-toggler-icon"></span>
             </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/books/all/all/1">Browse</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/subscribe">Subscribe</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/help">Help</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/faq">FAQ</a>
-                    </li>
-                </ul>
-                <div>
-                    <form action="/books/all/all/1" method="POST" class="d-flex">
-                        <input name="searchName" class="form-control me-2 " type="search" placeholder="Search"
-                            aria-label="Search">
-                        <button class="btn bg-dark text-white btn-block btn btn-outline-light"
-                            type="submit">Search</button>
-                    </form>
-                </div>
-
-                <button class="btn bg-dark text-white btn-block btn-outline-light" type="submit">Advanced
-                    Search</button>
-
-                <% if(!currentUser) {%>
-
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" id="Open-login">Login</a>
+            <% if(!currentUser){%>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" id="Open-register">Signup</a>
+                            <a class="nav-link" href="/books/all/all/1">Browse</a>
                         </li>
-
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="/subscribe">Subscribe</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/help">Help</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/faq">FAQ</a>
+                        </li>
                     </ul>
-                    <% } else {%>
-                        <ul class="navbar-nav mr-auto ">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <%= currentUser.username %>
-                                </a>
+                    <div>
+                        <form action="/books/all/all/1" method="POST" class="d-flex">
+                            <input name="searchName" class="form-control me-2 " type="search" placeholder="Search"
+                                aria-label="Search">
+                            <button class="btn bg-dark text-white btn-block btn btn-outline-light"
+                                type="submit">Search</button>
+                        </form>
+                    </div>
 
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" href="/user/dashboard">Dashboard</a></li>
-                                    <li><a class="dropdown-item" href="/logout">Sign Out</a></li>
-                                </ul>
+                    <button class="btn bg-dark text-white btn-block btn-outline-light" type="submit">Advanced
+                        Search</button>
+
+                    <% if(!currentUser) {%>
+
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" id="Open-login">Login</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" id="Open-register">Signup</a>
+                            </li>
+
+
                         </ul>
+                        <% } else {%>
+                            <ul class="navbar-nav mr-auto ">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        <%= currentUser.username %>
+                                    </a>
 
-                        <% } %>
+                                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="/user/dashboard">Dashboard</a></li>
+                                        <li><a class="dropdown-item" href="/logout">Sign Out</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+                            <% } %>
+                                <% } else if(currentUser.isAdmin){%>
+                                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                        <ul class="navbar-nav mx-auto">
+                                            <li class="nav-item active">
+                                                <a class="nav-link" href="/admin/bookInventory/all/all/1">Book
+                                                    Inventory</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/admin/users/1">Users</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/admin/books/add">Add Books</a>
+                                            </li>
+                                        </ul>
+                                        <div>
+
+                                            <ul class="navbar-nav mr-auto ">
+                                                <li class="nav-item dropdown">
+                                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                                                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <%= currentUser.username %>
+                                                    </a>
+
+                                                    <ul class="dropdown-menu dropdown-menu-end"
+                                                        aria-labelledby="navbarDropdown">
+                                                        <li><a class="dropdown-item" href="/admin">Admin
+                                                                Dashboard</a></li>
+                                                        <li><a class="dropdown-item" href="/logout">Sign Out</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
 
 
-            </div>
-        </div>
+
+                                            <% } else{%>
+                                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                                    <ul class="navbar-nav mx-auto">
+                                                        <li class="nav-item active">
+                                                            <a class="nav-link" href="/">Home</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="/books/all/all/1">Browse</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="/subscribe">Subscribe</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="/help">Help</a>
+                                                        </li>
+                                                        <li class="nav-item">
+                                                            <a class="nav-link" href="/faq">FAQ</a>
+                                                        </li>
+                                                    </ul>
+                                                    <div>
+                                                        <form action="/books/all/all/1" method="POST" class="d-flex">
+                                                            <input name="searchName" class="form-control me-2 "
+                                                                type="search" placeholder="Search" aria-label="Search">
+                                                            <button
+                                                                class="btn bg-dark text-white btn-block btn btn-outline-light"
+                                                                type="submit">Search</button>
+                                                        </form>
+                                                    </div>
+
+                                                    <button class="btn bg-dark text-white btn-block btn-outline-light"
+                                                        type="submit">Advanced
+                                                        Search</button>
+
+                                                    <% if(!currentUser) {%>
+
+                                                        <ul class="navbar-nav mr-auto">
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" href="#" id="Open-login">Login</a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" href="#"
+                                                                    id="Open-register">Signup</a>
+                                                            </li>
+
+
+                                                        </ul>
+                                                        <% } else {%>
+                                                            <ul class="navbar-nav mr-auto ">
+                                                                <li class="nav-item dropdown">
+                                                                    <a class="nav-link dropdown-toggle" href="#"
+                                                                        id="navbarDropdown" role="button"
+                                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                                        <%= currentUser.username %>
+                                                                    </a>
+
+                                                                    <ul class="dropdown-menu dropdown-menu-end"
+                                                                        aria-labelledby="navbarDropdown">
+                                                                        <li><a class="dropdown-item"
+                                                                                href="/user/dashboard">Dashboard</a>
+                                                                        </li>
+                                                                        <li><a class="dropdown-item" href="/logout">Sign
+                                                                                Out</a></li>
+                                                                    </ul>
+                                                                </li>
+                                                            </ul>
+
+                                                            <% } %>
+
+                                                                <% } %>
+
+
+                                                </div>
+                                        </div>
     </nav>

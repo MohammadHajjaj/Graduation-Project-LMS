@@ -5,11 +5,9 @@ const passportLocalMongoose = require('passport-local-mongoose');
 const UserSchema = new Schema({
     fName: {
         type: String,
-        required: true,
     },
     lName: {
         type: String,
-        required: true,
     },
     email: {
         type: String,
@@ -18,7 +16,7 @@ const UserSchema = new Schema({
     },
 
     phoneNumber: {
-        type: Number,
+        type: String,
     },
     joined: { type: Date, default: Date.now() },
     bookIssueInfo: [
