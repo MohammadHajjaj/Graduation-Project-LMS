@@ -6,6 +6,8 @@ const Stripe = require('stripe');
 
 const userController = require('../utils/userFunctions');
 const middleware = require("../middleware");
+const { sendVerificationEmail, verifyCode } = require('../emails/account')
+
 //users routes 
 
 router.get('/register', (req, res) => {
@@ -19,9 +21,30 @@ router.post('/register', middleware.validateUser, async (req, res, next) => {
     req.login(registeredUser, err => {
         if (err) return next(err);
         req.flash('success', 'Registered Successfully!');
-        res.redirect('/');
+        sendVerificationEmail(user.email)
+        res.redirect('/verify');
     })
 
+
+})
+
+router.get('/verify', (req, res) => {
+    res.render('verify')
+})
+
+router.post('/verify', (req, res) => {
+    const { verification_code } = req.body
+    try {
+        verifyCode(req.user.email, verification_code)
+        req.flash('success', 'Verifcation Was Successfull.');
+        res.redirect('/')
+
+
+    } catch (e) {
+        req.flash('error', 'Code entered does not match the verification code.');
+        console.log(e)
+        res.redirect('/verify')
+    }
 })
 
 

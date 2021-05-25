@@ -128,6 +128,7 @@ app.get('/', (req, res) => {
     res.render('index');
 })
 
+
 // app.use((err, req, res, next) => {
 //     const { statusCode = 500 } = err;
 //     if (!err.message) err.message = 'Oh No, Something Went Wrong!'
