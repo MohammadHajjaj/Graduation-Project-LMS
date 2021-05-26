@@ -26,5 +26,8 @@ const bookSchema = new Schema({
 
 });
 
+bookSchema.index({ '$**': 'text' });
+
+
 
 module.exports = mongoose.model('Book', bookSchema);

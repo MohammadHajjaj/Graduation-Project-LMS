@@ -148,7 +148,7 @@ exports.postAdminBookInventory = async (req, res, next) => {
 	try {
 		let page = req.params.page || 1;
 		const filter = req.body.filter.toLowerCase();
-		const value = req.body.searchName;
+		let value = req.body.searchName;
 
 		if (value == "") {
 			req.flash("error", "Search field is empty. Please fill the search field in order to get a result");
@@ -156,13 +156,13 @@ exports.postAdminBookInventory = async (req, res, next) => {
 		}
 		const searchObj = {};
 		searchObj[filter] = value;
-
+		value = value.toLowerCase()
 		// get the books count
 		const books_count = await Book.find(searchObj).countDocuments();
 
 		// fetch the books by search query
 		const books = await Book
-			.find(searchObj)
+			.find({ $text: { $search: value } })
 			.skip((PER_PAGE * page) - PER_PAGE)
 			.limit(PER_PAGE);
 

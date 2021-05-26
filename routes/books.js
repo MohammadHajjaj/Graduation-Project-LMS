@@ -60,25 +60,26 @@ router.get("/books/:filter/:value/:page", async (req, res, next) => {
 router.post("/books/:filter/:value/:page", async (req, res, next) => {
     var page = req.params.page || 1;
     let filter = req.body.filter;
-    const value = req.body.searchName;
+    let value = req.body.searchName;
 
-    // show flash message if empty search field is sent to backend
+    // show flash message if empty search field is sent
     if (value == "") {
-        req.flash("error", "Searc field is empty. Please fill the search field in order to get a result");
+        req.flash("error", "Search field is empty. Please fill the search field in order to get a result");
         return res.redirect('back');
     }
     else if (!filter) {
         filter = 'title'
     }
     filter = filter.toLowerCase();
-
+    value = value.toLowerCase()
     const searchObj = {};
     searchObj[filter] = value;
 
     try {
+        console.log(searchObj)
         // Fetch books from database
         const books = await Book
-            .find(searchObj)
+            .find({ $text: { $search: value } })
             .skip((PER_PAGE * page) - PER_PAGE)
             .limit(PER_PAGE)
 
