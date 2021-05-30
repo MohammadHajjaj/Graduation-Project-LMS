@@ -12,6 +12,15 @@ middleware.isLoggedIn = function (req, res, next) {
     res.redirect("/");
 };
 
+middleware.isVerified = function (req, res, next) {
+    if (req.isAuthenticated() && req.user.isVerified) {
+        return next();
+    }
+    req.flash("error", "You need to verify your account before proceeding. ");
+    res.redirect("/verify");
+};
+
+
 middleware.validateUser = (req, res, next) => {
     const { error } = userRegisterSchema.validate(req.body);
     if (error) {

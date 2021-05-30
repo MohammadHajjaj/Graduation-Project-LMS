@@ -12,9 +12,11 @@ module.exports.sendVerificationEmail = (email) => {
 }
 
 module.exports.verifyCode = (email, code) => {
-    client.verify.services('VAXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX')
+    client.verify.services('VA758873ecc9e16ade3f935c5b59985c2f')
         .verificationChecks
         .create({ to: email, code })
-        .then(verification_check => console.log(verification_check.status));
-
+        .then(verification_check => {
+            console.log(verification_check.status)
+            return verification_check.status
+        });
 }

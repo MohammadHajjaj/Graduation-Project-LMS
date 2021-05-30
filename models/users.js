@@ -37,7 +37,7 @@ const UserSchema = new Schema({
     isSubscribed: { type: Boolean, default: false },
     isAdmin: { type: Boolean, default: false },
     violationFlag: { type: Boolean, default: false },
-
+    isVerified: { type: Boolean, default: false }
 
 });
 

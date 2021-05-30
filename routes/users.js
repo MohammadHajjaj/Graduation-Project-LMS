@@ -6,11 +6,18 @@ const Stripe = require('stripe');
 
 const userController = require('../utils/userFunctions');
 const middleware = require("../middleware");
+const accountSid = "AC168fe5d7f7067f06ca42a2a7098c446f";
+const authToken = "e609ca769227a898e5d2c8eef3342279";
+const client = require('twilio')(accountSid, authToken);
 //users routes 
 
 router.get('/register', (req, res) => {
     res.render('register');
 });
+
+router.get('/verify', (req, res) => {
+    res.render('verify')
+})
 
 router.post('/register', middleware.validateUser, async (req, res, next) => {
     const { fName, lName, email, phoneNumber, username, password } = req.body.users;
@@ -18,10 +25,41 @@ router.post('/register', middleware.validateUser, async (req, res, next) => {
     const registeredUser = await User.register(user, password);
     req.login(registeredUser, err => {
         if (err) return next(err);
-        req.flash('success', 'Registered Successfully!');
-        res.redirect('/');
-    })
+        req.flash('success', 'Registered Successfully, Please verify your email to proceed!');
 
+        client.verify.services('VA758873ecc9e16ade3f935c5b59985c2f')
+            .verifications
+            .create({ to: req.user.email, channel: 'email' })
+            .then(verification => console.log(verification.sid));
+
+        res.redirect('/verify');
+    })
+})
+
+router.post('/verify', middleware.isLoggedIn, (req, res) => {
+    const { verification_code } = req.body
+    try {
+        client.verify.services('VA758873ecc9e16ade3f935c5b59985c2f')
+            .verificationChecks
+            .create({ to: req.user.email, code: verification_code })
+            .then(verification_check => {
+                if (verification_check.status === 'approved') {
+                    console.log('gud')
+                    req.flash('success', 'Verification Successfully');
+                    res.redirect('/');
+                    req.user.isVerified = true;
+
+                } else {
+                    req.flash('error', 'Wrong code!');
+                    res.redirect('/verify');
+
+                }
+
+            });
+    }
+    catch (e) {
+        console.log(e)
+    }
 })
 
 
@@ -66,17 +104,17 @@ router.put("/user/update-password", middleware.isLoggedIn, userController.putUpd
 router.put("/user/update-profile", middleware.isLoggedIn, userController.putUpdateUserProfile);
 
 //user -> issue a book
-router.post("/books/:book_id/issue/:user_id", middleware.isLoggedIn, userController.postIssueBook);
+router.post("/books/:book_id/issue/:user_id", middleware.isLoggedIn, middleware.isVerified, userController.postIssueBook);
 
 //user -> show return-renew page
-router.get("/books/return-renew", middleware.isLoggedIn, userController.getShowRenewReturn);
+router.get("/books/return-renew", middleware.isLoggedIn, middleware.isVerified, userController.getShowRenewReturn);
 
 //user -> renew book
-router.post("/books/:book_id/renew", middleware.isLoggedIn, middleware.isLoggedIn, userController.postRenewBook);
+router.post("/books/:book_id/renew", middleware.isLoggedIn, middleware.isVerified, userController.postRenewBook);
 
 // user -> return book
 
-router.post("/books/:book_id/return", middleware.isLoggedIn, userController.postReturnBook);
+router.post("/books/:book_id/return", middleware.isLoggedIn, middleware.isVerified, userController.postReturnBook);
 
 // user -> delete user account
 router.delete("/user/delete-profile", middleware.isLoggedIn, userController.deleteUserAccount);
