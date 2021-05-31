@@ -3,6 +3,7 @@ const { userRegisterSchema } = require('../schemas.js');
 const ExpressError = require('../utils/ExpressError');
 
 const middleware = {};
+const { sendVerificationEmail } = require("../emails/account")
 
 middleware.isLoggedIn = function (req, res, next) {
     if (req.isAuthenticated()) {
@@ -16,6 +17,7 @@ middleware.isVerified = function (req, res, next) {
     if (req.isAuthenticated() && req.user.isVerified) {
         return next();
     }
+    sendVerificationEmail(req.user.email)
     req.flash("error", "You need to verify your account before proceeding. ");
     res.redirect("/verify");
 };

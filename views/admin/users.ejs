@@ -105,6 +105,18 @@
                                     <i class="fa fa-flag"></i>
                                   </a>
                                   <% } %>
+                                    <% if(user.isSubscribed==='student' || user.isSubscribed==='standard' ) { %>
+                                      <a href="/admin/users/subscribed/<%=user._id%>" title="Remove Subscription"
+                                        class="btn btn-sm btn-warning">
+                                        <i class="fa fa-address-card"></i>
+                                      </a>
+                                      <% } else { %>
+                                        <a href="/admin/users/subscribed/<%=user._id%>" title="Add Subscription"
+                                          class="btn btn-sm btn-success">
+                                          <i class="fa fa-address-card"></i>
+                                        </a>
+                                        <% } %>
+
                       </td>
                     </tr>
                     <% }); %>

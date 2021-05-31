@@ -1,29 +1,28 @@
 <% layout('layouts/boilerplate')%>
     <!--content-->
-    <div class="container-fluid">
-        <div class="row thumbnail">
-            <div class="col-sm-4">
-                <img style="width: 100%; height: 500px; display: block;" src="<%=book.image%>"
-                    data-holder-rendered="true">
-            </div>
-            <div class="col-sm-8">
-                <div class="caption">
-                    <h3>
-                        Book Title : <%=book.title%>
-                    </h3><!-- Title-->
-                    <h4 class="d-block">
-                        Author: <%=book.author%>
-                            <!-- Author -->
-                    </h4>
-                    <h3>
-                        Stock : <%=book.stock%>
-                    </h3>
+    <div class="container-fluid ">
+        <div class="row thumbnail justify-content-center">
+            <div class="card" style="width:25rem;">
+                <img src="<%=book.image%>" class="card-img-top" alt="..." data-holder-rendered="true">
+                <div class="col">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            Title : <%=book.title%>
+                        </h5>
 
-                    <h3>Description</h3><!-- Book discreption -->
-                    <p>
-                        <%=book.description%>
-                    </p>
-                    <!-- How is this working???????????????????????????????????????????????????? -->
+                        <p class="card-text">
+                            <%=book.description%>
+                        </p>
+                        <p class="card-text">
+                            Author : <%=book.author%>
+                        </p>
+                        <p class="card-text">
+                            Category : <%=book.category%>
+                        </p>
+                        <p class="card-text">
+                            Stock : <%=book.stock%>
+                        </p>
+                    </div>
                     <% if(currentUser && book.stock> 0) { var match = false%>
                         <% currentUser.bookIssueInfo.forEach(book_info=> { %>
                             <% if(book_info._id.equals(book._id)) { %>
@@ -41,9 +40,11 @@
                                             </form>
                                             <% } %>
                                                 <% } %>
-                </div>
 
+                </div>
             </div>
 
+
+
+
         </div>
-    </div>

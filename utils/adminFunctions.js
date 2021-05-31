@@ -297,11 +297,11 @@ exports.getFlagUser = async (req, res, next) => {
 		if (user.violationFlag) {
 			user.violationFlag = false;
 			await user.save();
-			req.flash("success", `An user named ${user.fName} ${user.lName} is just unflagged!`);
+			req.flash("success", `A user named ${user.fName} ${user.lName} is just unflagged!`);
 		} else {
 			user.violationFlag = true;
 			await user.save();
-			req.flash("warning", `An user named ${user.fName} ${user.lName} is just flagged!`);
+			req.flash("warning", `A user named ${user.fName} ${user.lName} is just flagged!`);
 		}
 
 		res.redirect("/admin/users/1");
@@ -310,6 +310,31 @@ exports.getFlagUser = async (req, res, next) => {
 		res.redirect('back');
 	}
 };
+
+// admin -> sub/unsub user
+exports.getSubUser = async (req, res, next) => {
+	try {
+		const user_id = req.params.user_id;
+
+		const user = await User.findById(user_id);
+
+		if (user.isSubscribed === 'student' || user.isSubscribed === 'standard') {
+			user.isSubscribed = 'none';
+			await user.save();
+			req.flash("success", `Subscribtion for user named ${user.fName} ${user.lName} has been removed!`);
+		} else {
+			user.isSubscribed = 'student';
+			await user.save();
+			req.flash("warning", `A user named ${user.fName} ${user.lName} is now subscribed!`);
+		}
+
+		res.redirect("/admin/users/1");
+	} catch (err) {
+		console.log(err);
+		res.redirect('back');
+	}
+};
+
 
 // admin -> show one user
 exports.getUserProfile = async (req, res, next) => {

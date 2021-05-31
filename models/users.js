@@ -34,7 +34,7 @@ const UserSchema = new Schema({
         type: String,
         default: "",
     },
-    isSubscribed: { type: Boolean, default: false },
+    isSubscribed: { type: String, default: 'none' },
     isAdmin: { type: Boolean, default: false },
     violationFlag: { type: Boolean, default: false },
     isVerified: { type: Boolean, default: false }

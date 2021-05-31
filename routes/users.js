@@ -6,6 +6,7 @@ const Stripe = require('stripe');
 
 const userController = require('../utils/userFunctions');
 const middleware = require("../middleware");
+const { isVerified } = require("../middleware");
 const accountSid = "AC168fe5d7f7067f06ca42a2a7098c446f";
 const authToken = "e609ca769227a898e5d2c8eef3342279";
 const client = require('twilio')(accountSid, authToken);
@@ -16,6 +17,7 @@ router.get('/register', (req, res) => {
 });
 
 router.get('/verify', (req, res) => {
+    console.log(req.user._id)
     res.render('verify')
 })
 
@@ -36,19 +38,18 @@ router.post('/register', middleware.validateUser, async (req, res, next) => {
     })
 })
 
-router.post('/verify', middleware.isLoggedIn, (req, res) => {
+router.post('/verify', middleware.isLoggedIn, async (req, res) => {
     const { verification_code } = req.body
     try {
         client.verify.services('VA758873ecc9e16ade3f935c5b59985c2f')
             .verificationChecks
             .create({ to: req.user.email, code: verification_code })
-            .then(verification_check => {
+            .then(async verification_check => {
                 if (verification_check.status === 'approved') {
                     console.log('gud')
+                    await User.findByIdAndUpdate(req.user._id, { isVerified: true });
                     req.flash('success', 'Verification Successfully');
                     res.redirect('/');
-                    req.user.isVerified = true;
-
                 } else {
                     req.flash('error', 'Wrong code!');
                     res.redirect('/verify');
@@ -118,5 +119,30 @@ router.post("/books/:book_id/return", middleware.isLoggedIn, middleware.isVerifi
 
 // user -> delete user account
 router.delete("/user/delete-profile", middleware.isLoggedIn, userController.deleteUserAccount);
+
+
+router.get('/confirm-student', (req, res) => {
+    res.render('subscription/confirm-student');
+})
+
+router.get('/confirm-standard', (req, res) => {
+    res.render('subscription/confirm-standard');
+})
+
+
+router.post('/confirm-student', async (req, res) => {
+    try {
+        await User.findByIdAndUpdate(req.user._id, { isSubscribed: 'pending' });
+        req.flash('success', 'Your subscription is now pending payment');
+        res.redirect('/');
+    } catch (e) {
+        req.flash('error', 'Something Went Wrong');
+        res.redirect('/subscribe');
+    }
+})
+
+router.post('/confirm-standard', async (req, res) => {
+    res.render('subscription/confirm-standard');
+})
 
 module.exports = router;

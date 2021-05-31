@@ -44,6 +44,8 @@ router.post("/admin/users/:page", middleware.isAdmin, adminController.postShowSe
 
 //admin -> flag/unflag user
 router.get("/admin/users/flagged/:user_id", middleware.isAdmin, adminController.getFlagUser);
+//admin -> sub/unsub user
+router.get("/admin/users/subscribed/:user_id", middleware.isAdmin, adminController.getSubUser);
 
 //admin -> show one user
 router.get("/admin/users/profile/:user_id", middleware.isAdmin, adminController.getUserProfile);

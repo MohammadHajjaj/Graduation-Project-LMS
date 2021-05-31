@@ -124,9 +124,12 @@ app.get('/faq', (req, res) => {
 app.get('/help', (req, res) => {
     res.render('help');
 })
+
 app.get('/', (req, res) => {
     res.render('index');
 })
+
+
 
 
 // app.use((err, req, res, next) => {
