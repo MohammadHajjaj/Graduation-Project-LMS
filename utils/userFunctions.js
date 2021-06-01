@@ -167,10 +167,16 @@ exports.postIssueBook = async (req, res, next) => {
         req.flash("error", "You are flagged for violating rules on returning books. Untill the flag is lifted, You can't issue any books");
         return res.redirect("back");
     }
-
-    if (req.user.bookIssueInfo.length >= 3) {
-        req.flash("warning", "You can't issue more than 3 books at a time");
-        return res.redirect("back");
+    if (req.user.isSubscribed === 'none') {
+        if (req.user.bookIssueInfo.length >= 3) {
+            req.flash("warning", "You can't issue more than 3 books at a time");
+            return res.redirect("back");
+        }
+    } else {
+        if (req.user.bookIssueInfo.length >= 5) {
+            req.flash("warning", "Student Subscribers cannot issue more than 5 books at a time");
+            return res.redirect("back");
+        }
     }
 
     try {
